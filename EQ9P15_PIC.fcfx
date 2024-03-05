@@ -1,0 +1,324 @@
+<root>
+<document schema='101' license='-1,88263627,K38DMR' title='' description='' target='PIC.16F.16F887' >
+	<config data='!0,23e2!10,3eff%0,2%3,0%4,0%5,1%6,1%7,1%8,3%a,0%b,0%c,0%d,1%19,3%18,0' clkspd='19660800' simspd='4' usewdt='0' constif='0' />
+	<plugins >
+		<dll_dbg_icd enabled='0' >
+			<data name='debug' value='1' />
+			<data name='userpins' value='0' />
+			<data name='speed' value='0' />
+			<data name='usev9' value='0' />
+			<data name='breaks' value='8' />
+			<data name='stacks' value='8' />
+			<data name='clkport' value='1' />
+			<data name='clkbit' value='6' />
+			<data name='dataport' value='1' />
+			<data name='databit' value='7' />
+			<data name='ghostype' value='0' />
+			<data name='monitor' value='1' />
+			<data name='ictloop' value='0' />
+			<data name='ictrate' value='20000' />
+			<data name='ictmask' value='0' />
+			<data name='anlpres' value='255' />
+			<data name='digmask1' value='-1' />
+			<data name='digmask2' value='-1' />
+		</dll_dbg_icd>
+		<dll_models enabled='1' />
+		<dll_upgrader enabled='1' />
+		<dll_webhelp enabled='1' />
+	</plugins>
+	<supplement use='0' head='' body='' />
+	<debug />
+	<components >
+		<settings autoimg='1' center='1' unitscale='0' fixedscale='0' fixedx='1' fixedy='1' fixedz='1' headcode='0' />
+		<definition guid='8213918c-9c5d-41c0-9d41-d94419cd1c90' vstate='40' vmin='0' vmaj='1' srcleaf='' visiblename='' description='' category='Misc' catenable='1' author='' manuname='' manucode='' sysinfo='0' keywords='' dynamic='0' iconpath='' />
+		<component class_type='root' codename='panel' x='0' y='0' z='0' xsz='1' ysz='1' zsz='1' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='1' layer='0' poslock='0' >
+			<resources />
+			<properties />
+			<values />
+			<events />
+			<apis />
+			<variables >
+				<variable public='0' >
+					<def class_type='variable' name='BP' type='u8' description='' isconst='0' isinit='1' usrinit='0' setinit='0' />
+				</variable>
+				<variable public='0' >
+					<def class_type='variable' name='DUTY' type='u8' description='' isconst='0' isinit='1' usrinit='0' setinit='0' />
+				</variable>
+				<variable public='0' >
+					<def class_type='variable' name='false' type='b1' description='' isconst='1' isinit='1' usrinit='0' setinit='0' />
+				</variable>
+				<variable public='0' >
+					<def class_type='variable' name='RPM' type='u8' description='' isconst='0' isinit='1' usrinit='0' setinit='0' />
+				</variable>
+				<variable public='0' >
+					<def class_type='variable' name='POT' type='u8' description='' isconst='0' isinit='1' usrinit='0' setinit='0' />
+				</variable>
+				<variable public='0' >
+					<def class_type='variable' name='BA' type='u8' description='' isconst='0' isinit='1' usrinit='0' setinit='0' />
+				</variable>
+				<variable public='0' >
+					<def class_type='variable' name='true' type='b1' description='' isconst='1' isinit='1' usrinit='1' setinit='1' />
+				</variable>
+			</variables>
+			<macros >
+				<macro >
+					<flowline name='Main' description='' >
+						<return name='Return' type='v0' description='' isconst='0' isinit='0' usrinit='' setinit='' />
+						<command class_type='loop' title='Loop' ccode='// Loop
+// Loop: While 1
+while (1)
+{
+' type='0' exp='1' >
+							<flowline >
+								<command class_type='input' title='Input' ccode='// Input
+// Input: PORTB -&gt; M_PORTB
+FCV_M_PORTB = FCP_GET(M, B, 0xFF, 0);' mode='1' port='1048577' mask='2' exp='BA' />
+								<command class_type='input' title='Input' ccode='// Input
+// Input: PORTB -&gt; M_PORTB
+FCV_M_PORTB = FCP_GET(M, B, 0xFF, 0);' mode='1' port='1048577' mask='8' exp='BP' />
+								<command class_type='input' title='Input' mode='1' port='1048577' mask='32' exp='POT' />
+								<command class_type='input' title='Input' mode='1' port='1048577' mask='16' exp='RPM' />
+								<command class_type='call' title='Call Component Macro' component='lcd_eb005' macro='Cursor' >
+									<argument exp='0' />
+									<argument exp='0' />
+								</command>
+								<command class_type='call' title='Call Component Macro' component='lcd_eb005' macro='Clear' />
+								<command class_type='decision' title='Decision' exp='BP = 0' swap='0' >
+									<flowline >
+										<command class_type='decision' title='Decision' exp='BA = 1' swap='0' >
+											<flowline >
+												<command class_type='call' title='Call Component Macro' component='lcd_eb005' macro='Cursor' >
+													<argument exp='0' />
+													<argument exp='0' />
+												</command>
+												<command class_type='call' title='Call Component Macro' component='lcd_eb005' macro='PrintString' >
+													<argument exp='&quot;P15 E9 BP=0 BA=1&quot;' />
+												</command>
+												<command class_type='call' title='Call Component Macro' component='lcd_eb005' macro='PrintString' >
+													<argument exp='&quot;BP=On&quot;' />
+												</command>
+												<command class_type='call' title='Call Component Macro' component='PWM1' macro='Enable' />
+												<command class_type='call' title='Call Component Macro' component='lcd_eb005' macro='Cursor' >
+													<argument exp='0' />
+													<argument exp='0' />
+												</command>
+												<command class_type='call' title='Call Component Macro' component='lcd_eb005' macro='PrintString' >
+													<argument exp='&quot;P15 E9 BP=0 BA=1&quot;' />
+												</command>
+												<command class_type='output' title='Output' mode='2' port='1048576' mask='4' exp='POT' />
+												<command class_type='loop' title='Loop' type='0' exp='BP = 0' >
+													<flowline >
+														<command class_type='input' title='Input' ccode='// Input
+// Input: PORTB -&gt; M_PORTB
+FCV_M_PORTB = FCP_GET(M, B, 0xFF, 0);' mode='1' port='1048577' mask='8' exp='BP' />
+														<command class_type='call' title='Call Component Macro' component='slider_plastic1' macro='GetVoltage' >
+															<return exp='POT' />
+														</command>
+														<command class_type='call' title='Call Component Macro' component='PWM1' macro='SetDutyCycle' >
+															<argument exp='POT' />
+														</command>
+														<command class_type='calculation' title='Calculation' >
+															<exp exp='RPM = ((POT * 0.0833) * 250)' />
+														</command>
+														<command class_type='call' title='Call Component Macro' component='motor_simple1' macro='Start' />
+														<command class_type='call' title='Call Component Macro' component='lcd_eb005' macro='ClearLine' >
+															<argument exp='1' />
+														</command>
+														<command class_type='call' title='Call Component Macro' component='lcd_eb005' macro='Cursor' >
+															<argument exp='0' />
+															<argument exp='1' />
+														</command>
+														<command class_type='call' title='Call Component Macro' component='lcd_eb005' macro='PrintString' >
+															<argument exp='&quot;V=&quot;' />
+														</command>
+														<command class_type='call' title='Call Component Macro' component='lcd_eb005' macro='PrintNumber' >
+															<argument exp='POT' />
+														</command>
+														<command class_type='call' title='Call Component Macro' component='lcd_eb005' macro='Cursor' >
+															<argument exp='6' />
+															<argument exp='1' />
+														</command>
+														<command class_type='call' title='Call Component Macro' component='lcd_eb005' macro='PrintString' >
+															<argument exp='&quot;RPM=&quot;' />
+														</command>
+														<command class_type='call' title='Call Component Macro' component='lcd_eb005' macro='PrintNumber' >
+															<argument exp='RPM' />
+														</command>
+														<command class_type='delay' title='Delay' exp='5' type='2' />
+													</flowline>
+												</command>
+											</flowline>
+											<flowline >
+												<command class_type='call' title='Call Component Macro' component='motor_simple1' macro='Stop' />
+											</flowline>
+										</command>
+									</flowline>
+									<flowline >
+										<command class_type='call' title='Call Component Macro' component='lcd_eb005' macro='Start' />
+										<command class_type='call' title='Call Component Macro' component='motor_simple1' macro='Stop' />
+									</flowline>
+								</command>
+							</flowline>
+						</command>
+					</flowline>
+				</macro>
+			</macros>
+			<component class_type='text' codename='label1' x='-112' y='72' z='0' xsz='8' ysz='8' zsz='1' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='1' layer='1' poslock='0' >
+				<resources />
+				<properties />
+				<values >
+					<value target='Color' data='255' />
+					<value target='Background' data='-1' />
+					<value target='Font' data='Arial' />
+					<value target='Text' data='BP' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+			<component class_type='text' codename='label3' x='-80' y='72' z='0' xsz='8' ysz='8' zsz='1' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='1' layer='1' poslock='0' >
+				<resources />
+				<properties />
+				<values >
+					<value target='Color' data='65280' />
+					<value target='Background' data='-1' />
+					<value target='Font' data='Arial' />
+					<value target='Text' data='BA' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+			<component class_type='text' codename='label4' x='-96' y='16' z='0' xsz='8' ysz='8' zsz='1' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='1' layer='1' poslock='0' >
+				<resources />
+				<properties />
+				<values >
+					<value target='Color' data='11842740' />
+					<value target='Background' data='-1' />
+					<value target='Font' data='Arial' />
+					<value target='Text' data='M1' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+			<component class_type='ref' guid='4ac72986-ad7d-49ce-afe5-9128831debc9' vmin='1' vmaj='1' codename='switch_array_slide1' x='-96' y='72' z='3.18857' xsz='1' ysz='1' zsz='1' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='1' layer='1' poslock='1' >
+				<resources />
+				<properties />
+				<values >
+					<value target='count' data='2' />
+					<value target='port' data='011' />
+					<value target='pin0' data='$PORTB.1' />
+					<value target='pin1' data='$PORTB.3' />
+					<value target='pin2' data='$PORTB.3' />
+					<value target='pin3' data='$PORTA.3' />
+					<value target='pin4' data='' />
+					<value target='pin5' data='' />
+					<value target='pin6' data='' />
+					<value target='pin7' data='' />
+					<value target='debounce' data='0' />
+					<value target='polarity' data='000' />
+					<value target='align' data='000' />
+					<value target='spacing' data='12.000000' />
+					<value target='reverse' data='0' />
+					<value target='show_labels' data='004' />
+					<value target='label_color' data='16777215' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+			<component class_type='ref' guid='d29dda88-17de-4008-991a-c881890d4c57' vmin='1' vmaj='1' codename='lcd_eb005' x='-96' y='104' z='3.575' xsz='0.9' ysz='0.881543' zsz='1' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='1' layer='1' poslock='0' >
+				<resources />
+				<properties />
+				<values >
+					<value target='Pin_Data_0' data='$PORTA.0' />
+					<value target='Pin_Data_1' data='$PORTA.1' />
+					<value target='Pin_Data_2' data='$PORTA.2' />
+					<value target='Pin_Data_3' data='$PORTA.3' />
+					<value target='Pin_RS' data='$PORTA.4' />
+					<value target='Pin_E' data='$PORTA.5' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+			<component class_type='ref' guid='444fb704-814c-4707-a15c-759ba088505c' vmin='6' vmaj='1' codename='PWM1' x='-40' y='56' z='3.85571' xsz='2.28571' ysz='2.28571' zsz='2.28571' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='1' layer='1' poslock='1' >
+				<resources />
+				<properties />
+				<values >
+					<value target='channel' data='001' />
+					<value target='altpin' data='0' />
+					<value target='pwm_pin' data='$PORTC.2' />
+					<value target='RemapPin' data='' />
+					<value target='timer' data='002' />
+					<value target='period' data='12' />
+					<value target='prescale' data='000' />
+					<value target='period_calc' data='2.644857' />
+					<value target='frequency_calc' data='378.092316' />
+					<value target='pwm_prescale' data='1' />
+					<value target='SimRep' data='000' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+			<component class_type='ref' guid='1a8c2bb7-8bed-4a1c-9186-ba24688c8840' vmin='3' vmaj='1' codename='slider_plastic1' x='-56' y='54' z='10.6228' xsz='8' ysz='88' zsz='10' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='1' layer='1' poslock='0' >
+				<resources />
+				<properties />
+				<values >
+					<value target='tang_col' data='2960685' />
+					<value target='mark_col' data='192' />
+					<value target='ScopeTraces' data='0' />
+					<value target='channel' data='0' />
+					<value target='vrefvol' data='1200' />
+					<value target='vrefop' data='000' />
+					<value target='convspd' data='003' />
+					<value target='actime' data='40' />
+					<value target='bits' data='10' />
+					<value target='bitmul' data='0.004883' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+			<component class_type='ref' guid='4edcb163-5216-44c4-99d9-d6b24869f341' vmin='1' vmaj='1' codename='motor_simple1' x='-96' y='40' z='34.1507' xsz='1.28' ysz='1.28' zsz='1.28' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='1' layer='1' poslock='1' >
+				<resources />
+				<properties />
+				<values >
+					<value target='pin' data='$PORTA.2' />
+					<value target='speed' data='250.000000' />
+					<value target='acceleration' data='0.000000' />
+					<value target='deceleration' data='0.000000' />
+					<value target='show_actuator' data='1' />
+					<value target='target_object' data='' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+		</component>
+	</components>
+	<keymap />
+	<panel2d shadows='0' lighting='2' brightness='0' perspective='0' >
+		<background rgb='2960685' img='' style='0' />
+		<camera xe='-85' ye='65' ze='140.777' xt='-85' yt='65' zt='0' xquat='0' yquat='0' zquat='0' wquat='1' />
+	</panel2d>
+	<panel3d shadows='0' lighting='2' brightness='0' perspective='0' >
+		<background rgb='8409120' img='' style='0' />
+		<table rgb='7360576' img='' style='0' size='25' />
+		<camera xe='-3.67394e-014' ye='0' ze='-300' xt='0' yt='0' zt='0' xquat='0' yquat='1' zquat='0' wquat='6.12323e-017' />
+	</panel3d>
+	<layout >
+		<view type='0' name='Main' mode='0' placement='LAAAAAAAAAABAAAA---------------------wAAAAAUAAAAfAYAAIgDAAA' zoom='32' scrollx='0' scrolly='581' flags='0' />
+	</layout>
+</document>
+</root>

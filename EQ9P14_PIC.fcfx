@@ -1,0 +1,702 @@
+<root>
+<document schema='101' license='-1,88263627,K38DMR' title='' description='' target='PIC.16F.16F887' >
+	<config data='!0,23e2!10,3eff%0,2%3,0%4,0%5,1%6,1%7,1%8,3%a,0%b,0%c,0%d,1%19,3%18,0' clkspd='19660800' simspd='4' usewdt='0' constif='0' />
+	<plugins >
+		<dll_dbg_icd enabled='0' >
+			<data name='debug' value='1' />
+			<data name='userpins' value='0' />
+			<data name='speed' value='0' />
+			<data name='usev9' value='0' />
+			<data name='breaks' value='8' />
+			<data name='stacks' value='8' />
+			<data name='clkport' value='1' />
+			<data name='clkbit' value='6' />
+			<data name='dataport' value='1' />
+			<data name='databit' value='7' />
+			<data name='ghostype' value='0' />
+			<data name='monitor' value='1' />
+			<data name='ictloop' value='0' />
+			<data name='ictrate' value='20000' />
+			<data name='ictmask' value='0' />
+			<data name='anlpres' value='255' />
+			<data name='digmask1' value='-1' />
+			<data name='digmask2' value='-1' />
+		</dll_dbg_icd>
+		<dll_models enabled='1' />
+		<dll_upgrader enabled='1' />
+		<dll_webhelp enabled='1' />
+	</plugins>
+	<supplement use='0' head='' body='' />
+	<debug />
+	<components >
+		<settings autoimg='1' center='1' unitscale='0' fixedscale='0' fixedx='1' fixedy='1' fixedz='1' headcode='0' />
+		<definition guid='8213918c-9c5d-41c0-9d41-d94419cd1c90' vstate='40' vmin='0' vmaj='1' srcleaf='' visiblename='' description='' category='Misc' catenable='1' author='' manuname='' manucode='' sysinfo='0' keywords='' dynamic='0' iconpath='' />
+		<component class_type='root' codename='panel' x='0' y='0' z='0' xsz='1' ysz='1' zsz='1' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='1' layer='0' poslock='0' >
+			<resources />
+			<properties />
+			<values />
+			<events />
+			<apis />
+			<variables >
+				<variable public='0' >
+					<def class_type='variable' name='BR' type='u8' description='' isconst='0' isinit='1' usrinit='0' setinit='0' />
+				</variable>
+				<variable public='0' >
+					<def class_type='variable' name='BP' type='u8' description='' isconst='0' isinit='1' usrinit='0' setinit='0' />
+				</variable>
+				<variable public='0' >
+					<def class_type='variable' name='false' type='b1' description='' isconst='1' isinit='1' usrinit='0' setinit='0' />
+				</variable>
+				<variable public='0' >
+					<def class_type='variable' name='AB' type='u8' description='' isconst='0' isinit='1' usrinit='0' setinit='0' />
+				</variable>
+				<variable public='0' >
+					<def class_type='variable' name='BA' type='u8' description='' isconst='0' isinit='1' usrinit='0' setinit='0' />
+				</variable>
+				<variable public='0' >
+					<def class_type='variable' name='DB' type='u8' description='' isconst='0' isinit='0' usrinit='0' setinit='' />
+				</variable>
+				<variable public='0' >
+					<def class_type='variable' name='B2' type='u8' description='' isconst='0' isinit='1' usrinit='0' setinit='0' />
+				</variable>
+				<variable public='0' >
+					<def class_type='variable' name='true' type='b1' description='' isconst='1' isinit='1' usrinit='1' setinit='1' />
+				</variable>
+			</variables>
+			<macros >
+				<macro >
+					<flowline name='Main' description='' >
+						<return name='Return' type='v0' description='' isconst='0' isinit='0' usrinit='' setinit='' />
+						<command class_type='loop' title='Loop' ccode='// Loop
+// Loop: While 1
+while (1)
+{
+' type='0' exp='1' >
+							<flowline >
+								<command class_type='input' title='Input' ccode='// Input
+// Input: PORTB -&gt; M_PORTB
+FCV_M_PORTB = FCP_GET(M, B, 0xFF, 0);' mode='1' port='1048577' mask='1' exp='BA' />
+								<command class_type='input' title='Input' mode='1' port='1048577' mask='4' exp='BR' />
+								<command class_type='input' title='Input' ccode='// Input
+// Input: PORTB -&gt; M_PORTB
+FCV_M_PORTB = FCP_GET(M, B, 0xFF, 0);' mode='1' port='1048577' mask='8' exp='BP' />
+								<command class_type='input' title='Input' mode='1' port='1048577' mask='16' exp='DB' />
+								<command class_type='input' title='Input' mode='1' port='1048577' mask='32' exp='AB' />
+								<command class_type='label' title='Connection Point' labelid='0' labelname='A' />
+								<command class_type='decision' title='Decision' exp='BP = 0' swap='0' >
+									<flowline >
+										<command class_type='decision' title='Decision' exp='BA = 1' swap='0' >
+											<flowline >
+												<command class_type='call' title='Call Component Macro' component='stepper_generic1' macro='EnableMotor' />
+												<command class_type='decision' title='Decision' exp='BR = 1' swap='0' >
+													<flowline >
+														<command class_type='goto' title='Goto Connection Point' labelid='1' labelname='' />
+													</flowline>
+													<flowline />
+												</command>
+												<command class_type='decision' title='Decision' exp='AB = 1' swap='0' >
+													<flowline >
+														<command class_type='loop' title='Loop' type='2' exp='100' >
+															<flowline >
+																<command class_type='input' title='Input' ccode='// Input
+// Input: PORTB -&gt; M_PORTB
+FCV_M_PORTB = FCP_GET(M, B, 0xFF, 0);' mode='1' port='1048577' mask='1' exp='BA' />
+																<command class_type='input' title='Input' mode='1' port='1048577' mask='4' exp='BR' />
+																<command class_type='input' title='Input' ccode='// Input
+// Input: PORTB -&gt; M_PORTB
+FCV_M_PORTB = FCP_GET(M, B, 0xFF, 0);' mode='1' port='1048577' mask='8' exp='BP' />
+																<command class_type='input' title='Input' mode='1' port='1048577' mask='16' exp='DB' />
+																<command class_type='input' title='Input' mode='1' port='1048577' mask='32' exp='AB' />
+																<command class_type='call' title='Call Component Macro' component='stepper_generic1' macro='IncrementStep' />
+																<command class_type='decision' title='Decision' exp='BP = 1' swap='0' >
+																	<flowline >
+																		<command class_type='goto' title='Goto Connection Point' labelid='0' labelname='' />
+																	</flowline>
+																	<flowline >
+																		<command class_type='decision' title='Decision' exp='DB = 1' swap='0' >
+																			<flowline >
+																				<command class_type='goto' title='Goto Connection Point' labelid='0' labelname='' />
+																			</flowline>
+																			<flowline >
+																				<command class_type='decision' title='Decision' exp='BR = 1' swap='0' >
+																					<flowline >
+																						<command class_type='goto' title='Goto Connection Point' labelid='0' labelname='' />
+																					</flowline>
+																					<flowline >
+																						<command class_type='decision' title='Decision' exp='AB = 0' swap='0' >
+																							<flowline >
+																								<command class_type='goto' title='Goto Connection Point' labelid='0' labelname='' />
+																							</flowline>
+																							<flowline >
+																								<command class_type='decision' title='Decision' exp='BA = 0' swap='0' >
+																									<flowline >
+																										<command class_type='goto' title='Goto Connection Point' labelid='0' labelname='' />
+																									</flowline>
+																									<flowline />
+																								</command>
+																							</flowline>
+																						</command>
+																					</flowline>
+																				</command>
+																			</flowline>
+																		</command>
+																	</flowline>
+																</command>
+															</flowline>
+														</command>
+													</flowline>
+													<flowline >
+														<command class_type='decision' title='Decision' exp='DB = 1' swap='0' >
+															<flowline >
+																<command class_type='loop' title='Loop' type='2' exp='100' >
+																	<flowline >
+																		<command class_type='input' title='Input' ccode='// Input
+// Input: PORTB -&gt; M_PORTB
+FCV_M_PORTB = FCP_GET(M, B, 0xFF, 0);' mode='1' port='1048577' mask='1' exp='BA' />
+																		<command class_type='input' title='Input' mode='1' port='1048577' mask='4' exp='BR' />
+																		<command class_type='input' title='Input' ccode='// Input
+// Input: PORTB -&gt; M_PORTB
+FCV_M_PORTB = FCP_GET(M, B, 0xFF, 0);' mode='1' port='1048577' mask='8' exp='BP' />
+																		<command class_type='input' title='Input' mode='1' port='1048577' mask='16' exp='DB' />
+																		<command class_type='input' title='Input' mode='1' port='1048577' mask='32' exp='AB' />
+																		<command class_type='call' title='Call Component Macro' component='stepper_generic1' macro='IncrementStep' />
+																		<command class_type='delay' title='Delay' exp='800' type='1' />
+																		<command class_type='decision' title='Decision' exp='BP = 1' swap='0' >
+																			<flowline >
+																				<command class_type='goto' title='Goto Connection Point' labelid='0' labelname='' />
+																			</flowline>
+																			<flowline >
+																				<command class_type='decision' title='Decision' exp='DB = 0' swap='0' >
+																					<flowline >
+																						<command class_type='goto' title='Goto Connection Point' labelid='0' labelname='' />
+																					</flowline>
+																					<flowline >
+																						<command class_type='decision' title='Decision' exp='BR = 1' swap='0' >
+																							<flowline >
+																								<command class_type='goto' title='Goto Connection Point' labelid='0' labelname='' />
+																							</flowline>
+																							<flowline >
+																								<command class_type='decision' title='Decision' exp='BA = 0' swap='0' >
+																									<flowline >
+																										<command class_type='goto' title='Goto Connection Point' labelid='0' labelname='' />
+																									</flowline>
+																									<flowline >
+																										<command class_type='decision' title='Decision' exp='AB = 1' swap='0' >
+																											<flowline >
+																												<command class_type='goto' title='Goto Connection Point' labelid='0' labelname='' />
+																											</flowline>
+																											<flowline />
+																										</command>
+																									</flowline>
+																								</command>
+																							</flowline>
+																						</command>
+																					</flowline>
+																				</command>
+																			</flowline>
+																		</command>
+																	</flowline>
+																</command>
+															</flowline>
+															<flowline >
+																<command class_type='label' title='Connection Point' labelid='1' labelname='B' />
+																<command class_type='decision' title='Decision' exp='BR = 1' swap='0' >
+																	<flowline >
+																		<command class_type='call' title='Call Component Macro' component='stepper_generic1' macro='DisableMotor' />
+																		<command class_type='call' title='Call Component Macro' component='stepper_generic1' macro='EnableMotor' />
+																		<command class_type='decision' title='Decision' exp='AB = 1' swap='0' >
+																			<flowline >
+																				<command class_type='loop' title='Loop' type='2' exp='100' >
+																					<flowline >
+																						<command class_type='call' title='Call Component Macro' component='stepper_generic1' macro='DecrementStep' />
+																						<command class_type='input' title='Input' ccode='// Input
+// Input: PORTB -&gt; M_PORTB
+FCV_M_PORTB = FCP_GET(M, B, 0xFF, 0);' mode='1' port='1048577' mask='1' exp='BA' />
+																						<command class_type='input' title='Input' mode='1' port='1048577' mask='4' exp='BR' />
+																						<command class_type='input' title='Input' ccode='// Input
+// Input: PORTB -&gt; M_PORTB
+FCV_M_PORTB = FCP_GET(M, B, 0xFF, 0);' mode='1' port='1048577' mask='8' exp='BP' />
+																						<command class_type='input' title='Input' mode='1' port='1048577' mask='16' exp='DB' />
+																						<command class_type='input' title='Input' mode='1' port='1048577' mask='32' exp='AB' />
+																						<command class_type='decision' title='Decision' exp='BP = 1' swap='0' >
+																							<flowline >
+																								<command class_type='goto' title='Goto Connection Point' labelid='0' labelname='' />
+																							</flowline>
+																							<flowline >
+																								<command class_type='decision' title='Decision' exp='DB = 1' swap='0' >
+																									<flowline >
+																										<command class_type='goto' title='Goto Connection Point' labelid='0' labelname='' />
+																									</flowline>
+																									<flowline >
+																										<command class_type='decision' title='Decision' exp='BR = 0' swap='0' >
+																											<flowline >
+																												<command class_type='goto' title='Goto Connection Point' labelid='0' labelname='' />
+																											</flowline>
+																											<flowline >
+																												<command class_type='decision' title='Decision' exp='AB = 0' swap='0' >
+																													<flowline >
+																														<command class_type='goto' title='Goto Connection Point' labelid='0' labelname='' />
+																													</flowline>
+																													<flowline >
+																														<command class_type='decision' title='Decision' exp='BA = 0' swap='0' >
+																															<flowline >
+																																<command class_type='goto' title='Goto Connection Point' labelid='0' labelname='' />
+																															</flowline>
+																															<flowline />
+																														</command>
+																													</flowline>
+																												</command>
+																											</flowline>
+																										</command>
+																									</flowline>
+																								</command>
+																							</flowline>
+																						</command>
+																					</flowline>
+																				</command>
+																			</flowline>
+																			<flowline >
+																				<command class_type='decision' title='Decision' exp='DB = 1' swap='0' >
+																					<flowline >
+																						<command class_type='loop' title='Loop' type='2' exp='100' >
+																							<flowline >
+																								<command class_type='input' title='Input' ccode='// Input
+// Input: PORTB -&gt; M_PORTB
+FCV_M_PORTB = FCP_GET(M, B, 0xFF, 0);' mode='1' port='1048577' mask='1' exp='BA' />
+																								<command class_type='input' title='Input' mode='1' port='1048577' mask='4' exp='BR' />
+																								<command class_type='input' title='Input' ccode='// Input
+// Input: PORTB -&gt; M_PORTB
+FCV_M_PORTB = FCP_GET(M, B, 0xFF, 0);' mode='1' port='1048577' mask='8' exp='BP' />
+																								<command class_type='input' title='Input' mode='1' port='1048577' mask='16' exp='DB' />
+																								<command class_type='input' title='Input' mode='1' port='1048577' mask='32' exp='AB' />
+																								<command class_type='call' title='Call Component Macro' component='stepper_generic1' macro='DecrementStep' />
+																								<command class_type='delay' title='Delay' exp='800' type='1' />
+																								<command class_type='decision' title='Decision' exp='BP = 1' swap='0' >
+																									<flowline >
+																										<command class_type='goto' title='Goto Connection Point' labelid='0' labelname='' />
+																									</flowline>
+																									<flowline >
+																										<command class_type='decision' title='Decision' exp='DB = 0' swap='0' >
+																											<flowline >
+																												<command class_type='goto' title='Goto Connection Point' labelid='0' labelname='' />
+																											</flowline>
+																											<flowline >
+																												<command class_type='decision' title='Decision' exp='BR = 0' swap='0' >
+																													<flowline >
+																														<command class_type='goto' title='Goto Connection Point' labelid='0' labelname='' />
+																													</flowline>
+																													<flowline >
+																														<command class_type='decision' title='Decision' exp='AB = 1' swap='0' >
+																															<flowline >
+																																<command class_type='goto' title='Goto Connection Point' labelid='0' labelname='' />
+																															</flowline>
+																															<flowline >
+																																<command class_type='decision' title='Decision' exp='BA = 0' swap='0' >
+																																	<flowline >
+																																		<command class_type='goto' title='Goto Connection Point' labelid='0' labelname='' />
+																																	</flowline>
+																																	<flowline />
+																																</command>
+																															</flowline>
+																														</command>
+																													</flowline>
+																												</command>
+																											</flowline>
+																										</command>
+																									</flowline>
+																								</command>
+																							</flowline>
+																						</command>
+																					</flowline>
+																					<flowline >
+																						<command class_type='loop' title='Loop' type='2' exp='100' >
+																							<flowline >
+																								<command class_type='input' title='Input' ccode='// Input
+// Input: PORTB -&gt; M_PORTB
+FCV_M_PORTB = FCP_GET(M, B, 0xFF, 0);' mode='1' port='1048577' mask='1' exp='BA' />
+																								<command class_type='input' title='Input' mode='1' port='1048577' mask='4' exp='BR' />
+																								<command class_type='input' title='Input' ccode='// Input
+// Input: PORTB -&gt; M_PORTB
+FCV_M_PORTB = FCP_GET(M, B, 0xFF, 0);' mode='1' port='1048577' mask='8' exp='BP' />
+																								<command class_type='input' title='Input' mode='1' port='1048577' mask='16' exp='DB' />
+																								<command class_type='input' title='Input' mode='1' port='1048577' mask='32' exp='AB' />
+																								<command class_type='call' title='Call Component Macro' component='stepper_generic1' macro='DecrementStep' />
+																								<command class_type='delay' title='Delay' exp='400' type='1' />
+																								<command class_type='decision' title='Decision' exp='BP = 1' swap='0' >
+																									<flowline >
+																										<command class_type='goto' title='Goto Connection Point' labelid='0' labelname='' />
+																									</flowline>
+																									<flowline >
+																										<command class_type='decision' title='Decision' exp='DB = 1' swap='0' >
+																											<flowline >
+																												<command class_type='goto' title='Goto Connection Point' labelid='0' labelname='' />
+																											</flowline>
+																											<flowline >
+																												<command class_type='decision' title='Decision' exp='BR = 0' swap='0' >
+																													<flowline >
+																														<command class_type='goto' title='Goto Connection Point' labelid='0' labelname='' />
+																													</flowline>
+																													<flowline >
+																														<command class_type='decision' title='Decision' exp='AB = 1' swap='0' >
+																															<flowline >
+																																<command class_type='goto' title='Goto Connection Point' labelid='0' labelname='' />
+																															</flowline>
+																															<flowline >
+																																<command class_type='decision' title='Decision' exp='BA = 0' swap='0' >
+																																	<flowline >
+																																		<command class_type='goto' title='Goto Connection Point' labelid='0' labelname='' />
+																																	</flowline>
+																																	<flowline />
+																																</command>
+																															</flowline>
+																														</command>
+																													</flowline>
+																												</command>
+																											</flowline>
+																										</command>
+																									</flowline>
+																								</command>
+																							</flowline>
+																						</command>
+																					</flowline>
+																				</command>
+																			</flowline>
+																		</command>
+																	</flowline>
+																	<flowline >
+																		<command class_type='loop' title='Loop' type='2' exp='100' >
+																			<flowline >
+																				<command class_type='input' title='Input' ccode='// Input
+// Input: PORTB -&gt; M_PORTB
+FCV_M_PORTB = FCP_GET(M, B, 0xFF, 0);' mode='1' port='1048577' mask='1' exp='BA' />
+																				<command class_type='input' title='Input' mode='1' port='1048577' mask='4' exp='BR' />
+																				<command class_type='input' title='Input' ccode='// Input
+// Input: PORTB -&gt; M_PORTB
+FCV_M_PORTB = FCP_GET(M, B, 0xFF, 0);' mode='1' port='1048577' mask='8' exp='BP' />
+																				<command class_type='input' title='Input' mode='1' port='1048577' mask='16' exp='DB' />
+																				<command class_type='input' title='Input' mode='1' port='1048577' mask='32' exp='AB' />
+																				<command class_type='decision' title='Decision' exp='BP = 1' swap='0' >
+																					<flowline >
+																						<command class_type='goto' title='Goto Connection Point' labelid='0' labelname='' />
+																					</flowline>
+																					<flowline >
+																						<command class_type='decision' title='Decision' exp='DB = 1' swap='0' >
+																							<flowline >
+																								<command class_type='goto' title='Goto Connection Point' labelid='0' labelname='' />
+																							</flowline>
+																							<flowline >
+																								<command class_type='decision' title='Decision' exp='BR = 1' swap='0' >
+																									<flowline >
+																										<command class_type='goto' title='Goto Connection Point' labelid='0' labelname='' />
+																									</flowline>
+																									<flowline >
+																										<command class_type='decision' title='Decision' exp='BA = 0' swap='0' >
+																											<flowline >
+																												<command class_type='goto' title='Goto Connection Point' labelid='0' labelname='' />
+																											</flowline>
+																											<flowline >
+																												<command class_type='decision' title='Decision' exp='AB = 1' swap='0' >
+																													<flowline >
+																														<command class_type='goto' title='Goto Connection Point' labelid='0' labelname='' />
+																													</flowline>
+																													<flowline />
+																												</command>
+																											</flowline>
+																										</command>
+																									</flowline>
+																								</command>
+																							</flowline>
+																						</command>
+																					</flowline>
+																				</command>
+																				<command class_type='call' title='Call Component Macro' component='stepper_generic1' macro='IncrementStep' />
+																				<command class_type='delay' title='Delay' exp='400' type='1' />
+																			</flowline>
+																		</command>
+																	</flowline>
+																</command>
+															</flowline>
+														</command>
+													</flowline>
+												</command>
+											</flowline>
+											<flowline >
+												<command class_type='call' title='Call Component Macro' component='stepper_generic1' macro='DisableMotor' />
+											</flowline>
+										</command>
+									</flowline>
+									<flowline >
+										<command class_type='call' title='Call Component Macro' component='stepper_generic1' macro='DisableMotor' />
+									</flowline>
+								</command>
+							</flowline>
+						</command>
+					</flowline>
+				</macro>
+			</macros>
+			<component class_type='text' codename='label1' x='-104' y='80' z='0' xsz='8' ysz='8' zsz='1' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='1' layer='1' poslock='0' >
+				<resources />
+				<properties />
+				<values >
+					<value target='Color' data='255' />
+					<value target='Background' data='-1' />
+					<value target='Font' data='Arial' />
+					<value target='Text' data='BP' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+			<component class_type='text' codename='label3' x='-56' y='80' z='0' xsz='8' ysz='8' zsz='1' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='1' layer='1' poslock='0' >
+				<resources />
+				<properties />
+				<values >
+					<value target='Color' data='65280' />
+					<value target='Background' data='-1' />
+					<value target='Font' data='Arial' />
+					<value target='Text' data='BA' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+			<component class_type='ref' guid='d92e8259-f3a8-4176-a8c4-fe7ca42b2c3f' vmin='1' vmaj='1' codename='led_5mm1' x='-88' y='40' z='1.35' xsz='1' ysz='1' zsz='1' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='1' layer='1' poslock='0' >
+				<resources />
+				<properties />
+				<values >
+					<value target='pin' data='$PORTB.5' />
+					<value target='polarity' data='001' />
+					<value target='on_color' data='65280' />
+					<value target='length' data='4.000000' />
+					<value target='show_label' data='000' />
+					<value target='label_property' data='pin' />
+					<value target='label_color' data='16777215' />
+					<value target='label_scale' data='1.000000' />
+					<value target='label_auto_scale' data='0' />
+					<value target='label_position' data='003' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+			<component class_type='ref' guid='d92e8259-f3a8-4176-a8c4-fe7ca42b2c3f' vmin='1' vmaj='1' codename='led_5mm2' x='-64' y='40' z='1.35' xsz='1' ysz='1' zsz='1' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='1' layer='1' poslock='0' >
+				<resources />
+				<properties />
+				<values >
+					<value target='pin' data='$PORTB.4' />
+					<value target='polarity' data='001' />
+					<value target='on_color' data='65280' />
+					<value target='length' data='4.000000' />
+					<value target='show_label' data='000' />
+					<value target='label_property' data='pin' />
+					<value target='label_color' data='16777215' />
+					<value target='label_scale' data='1.000000' />
+					<value target='label_auto_scale' data='0' />
+					<value target='label_position' data='003' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+			<component class_type='ref' guid='4ac72986-ad7d-49ce-afe5-9128831debc9' vmin='1' vmaj='1' codename='switch_array_slide1' x='-80' y='80' z='1.75' xsz='1' ysz='1' zsz='1' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='1' layer='1' poslock='1' >
+				<resources />
+				<properties />
+				<values >
+					<value target='count' data='3' />
+					<value target='port' data='011' />
+					<value target='pin0' data='$PORTB.0' />
+					<value target='pin1' data='$PORTB.2' />
+					<value target='pin2' data='$PORTB.3' />
+					<value target='pin3' data='$PORTA.3' />
+					<value target='pin4' data='' />
+					<value target='pin5' data='' />
+					<value target='pin6' data='' />
+					<value target='pin7' data='' />
+					<value target='debounce' data='0' />
+					<value target='polarity' data='000' />
+					<value target='align' data='000' />
+					<value target='spacing' data='12.000000' />
+					<value target='reverse' data='0' />
+					<value target='show_labels' data='004' />
+					<value target='label_color' data='16777215' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+			<component class_type='ref' guid='e8f04af0-03d9-4b1c-83d3-9d0b1dc0f80a' vmin='1' vmaj='1' codename='sw_toggle_mtl_pnl1' x='-88' y='48' z='-2.4395' xsz='1.35593' ysz='1.25984' zsz='1' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='1' layer='1' poslock='0' >
+				<resources />
+				<properties />
+				<values >
+					<value target='pin' data='$PORTB.5' />
+					<value target='polarity' data='000' />
+					<value target='debounce' data='10' />
+					<value target='operation' data='001' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+			<component class_type='ref' guid='e8f04af0-03d9-4b1c-83d3-9d0b1dc0f80a' vmin='1' vmaj='1' codename='sw_toggle_mtl_pnl2' x='-64' y='48' z='-2.4395' xsz='1.35593' ysz='1.25984' zsz='1' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='1' layer='1' poslock='0' >
+				<resources />
+				<properties />
+				<values >
+					<value target='pin' data='$PORTB.4' />
+					<value target='polarity' data='000' />
+					<value target='debounce' data='10' />
+					<value target='operation' data='001' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+			<component class_type='text' codename='label2' x='-88' y='32' z='0' xsz='8' ysz='8' zsz='1' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='1' layer='1' poslock='0' >
+				<resources />
+				<properties />
+				<values >
+					<value target='Color' data='11842740' />
+					<value target='Background' data='-1' />
+					<value target='Font' data='Arial' />
+					<value target='Text' data='+V' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+			<component class_type='text' codename='label5' x='-64' y='32' z='0' xsz='8' ysz='8' zsz='1' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='1' layer='1' poslock='0' >
+				<resources />
+				<properties />
+				<values >
+					<value target='Color' data='11842740' />
+					<value target='Background' data='-1' />
+					<value target='Font' data='Arial' />
+					<value target='Text' data='-V' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+			<component class_type='ref' guid='cfd176dc-a2c1-4dad-ac45-117781624c82' vmin='1' vmaj='1' codename='stepper_generic1' x='-80' y='120' z='21.0524' xsz='0.774194' ysz='0.774194' zsz='1' xang='-17.6035' yang='0' zang='0' xquat='-0.153016' yquat='0' zquat='0' wquat='0.988224' visible='1' interactive='1' solid='1' layer='1' poslock='0' >
+				<resources />
+				<properties />
+				<values >
+					<value target='Coil_1' data='$PORTC.0' />
+					<value target='Coil_2' data='$PORTC.1' />
+					<value target='Coil_3' data='$PORTC.2' />
+					<value target='Coil_4' data='$PORTC.3' />
+					<value target='Winding_Type' data='000' />
+					<value target='Step_Type' data='000' />
+					<value target='Steps_Per_Rev' data='100' />
+					<value target='coils_enable' data='1' />
+					<value target='arrow_enable' data='1' />
+					<value target='target_object' data='' />
+					<value target='gear_ratio' data='1.000000' />
+					<value target='x_pitch' data='0.000000' />
+					<value target='y_pitch' data='0.000000' />
+					<value target='z_pitch' data='0.000000' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+			<component class_type='text' codename='label6' x='-80' y='64' z='0' xsz='8' ysz='8' zsz='1' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='1' layer='1' poslock='0' >
+				<resources />
+				<properties />
+				<values >
+					<value target='Color' data='33023' />
+					<value target='Background' data='-1' />
+					<value target='Font' data='Arial' />
+					<value target='Text' data='BR' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+			<component class_type='ref' guid='d92e8259-f3a8-4176-a8c4-fe7ca42b2c3f' vmin='1' vmaj='1' codename='led_5mm4' x='-72' y='64' z='-1.90735e-007' xsz='1' ysz='1' zsz='1' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='1' layer='1' poslock='0' >
+				<resources />
+				<properties />
+				<values >
+					<value target='pin' data='$PORTB.2' />
+					<value target='polarity' data='001' />
+					<value target='on_color' data='33023' />
+					<value target='length' data='4.000000' />
+					<value target='show_label' data='000' />
+					<value target='label_property' data='pin' />
+					<value target='label_color' data='16777215' />
+					<value target='label_scale' data='1.000000' />
+					<value target='label_auto_scale' data='0' />
+					<value target='label_position' data='003' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+			<component class_type='ref' guid='d92e8259-f3a8-4176-a8c4-fe7ca42b2c3f' vmin='1' vmaj='1' codename='led_5mm3' x='-56' y='72' z='-1.90735e-007' xsz='1' ysz='1' zsz='1' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='1' layer='1' poslock='0' >
+				<resources />
+				<properties />
+				<values >
+					<value target='pin' data='$PORTB.0' />
+					<value target='polarity' data='001' />
+					<value target='on_color' data='65280' />
+					<value target='length' data='4.000000' />
+					<value target='show_label' data='000' />
+					<value target='label_property' data='pin' />
+					<value target='label_color' data='16777215' />
+					<value target='label_scale' data='1.000000' />
+					<value target='label_auto_scale' data='0' />
+					<value target='label_position' data='003' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+			<component class_type='ref' guid='d92e8259-f3a8-4176-a8c4-fe7ca42b2c3f' vmin='1' vmaj='1' codename='led_5mm5' x='-104' y='72' z='-1.90735e-007' xsz='1' ysz='1' zsz='1' xang='0' yang='0' zang='0' xquat='0' yquat='0' zquat='0' wquat='1' visible='1' interactive='1' solid='1' layer='1' poslock='0' >
+				<resources />
+				<properties />
+				<values >
+					<value target='pin' data='$PORTB.3' />
+					<value target='polarity' data='001' />
+					<value target='on_color' data='255' />
+					<value target='length' data='4.000000' />
+					<value target='show_label' data='000' />
+					<value target='label_property' data='pin' />
+					<value target='label_color' data='16777215' />
+					<value target='label_scale' data='1.000000' />
+					<value target='label_auto_scale' data='0' />
+					<value target='label_position' data='003' />
+				</values>
+				<events />
+				<apis />
+				<variables />
+				<macros />
+			</component>
+		</component>
+	</components>
+	<keymap />
+	<panel2d shadows='0' lighting='2' brightness='0' perspective='0' >
+		<background rgb='2960685' img='' style='0' />
+		<camera xe='-79' ye='88' ze='111.018' xt='-79' yt='88' zt='0' xquat='0' yquat='0' zquat='0' wquat='1' />
+	</panel2d>
+	<panel3d shadows='0' lighting='2' brightness='0' perspective='0' >
+		<background rgb='8409120' img='' style='0' />
+		<table rgb='7360576' img='' style='0' size='25' />
+		<camera xe='-3.67394e-014' ye='0' ze='-300' xt='0' yt='0' zt='0' xquat='0' yquat='1' zquat='0' wquat='6.12323e-017' />
+	</panel3d>
+	<layout >
+		<view type='0' name='Main' mode='0' placement='LAAAAAAAAAABAAAA---------------------wAAAAAUAAAAhgUAAIgDAAA' zoom='25' scrollx='0' scrolly='0' flags='0' />
+	</layout>
+</document>
+</root>
